@@ -25,7 +25,7 @@
     </style>
 </head>
 
-<body class="font-serif font-weight:400 w-[100%] bg-gray-200 relative">
+<body class="font-serif font-weight:400 w-[100%] bg-gray-200 h-[100vh] m-0 ">
 
     <!-- navbar -->
     <section>
@@ -36,9 +36,8 @@
 
     </section>
     <!-- Add task form -->
-    <section class="hidden">
-        <form action=""
-            class="z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-10 rounded-lg">
+    <section id="input__form" class="w-[100vw] h-[100vh] top-0 left-0 absolute z-20 hidden">
+        <form action="" id="form__tag" class="z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-10 rounded-lg">
             <table>
                 <tr>
                     <th> <label for="task-input">What is to be done?</label></th>
@@ -61,7 +60,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="text-center"><input type="submit" class="border p-2 rounded-lg"></td>
+                    <td colspan="2" class="text-center"><input type="submit" id="close__button" class="border p-2 rounded-lg"></td>
                 </tr>
             </table>
         </form>
@@ -73,45 +72,26 @@
         <div class=" border rounded-lg w-[80%] relative h-auto bg-white m-auto mt-10 p-5 shadow-lg text-[2vw]">
             <h2 class="text-2xl font-bold text-center mb-4">In Progress</h2>
             <div class="w-[100%] h-[25vw] overflow-auto">
-                <div class="w-[100%] flex flex-col items-center">
-                    <div class="inprogress__task">
+                <div id="inprogress__container" class="w-[100%] flex flex-col items-center">
+                    <div class="">
+                        <h1 id="no__task" class="font-bold text-[3vw] mt-[50%] text-gray-500">NO Tasks Yet</h1>
+                    </div>
+                    <!-- <div class="inprogress__task">
                         <div class="inprogress__category">
-                            <p>category</p>
+                            <p class="inprogress__category__p">category</p>
                         </div>
                         <div class="inprogress__content">
                             <input type="checkbox">
-                            <h1>this is first task</h1>
+                            <h1 class="inprogress__content__h1">this is first task</h1>
                         </div>
                         <p class="inprogress__datetime">2024-07-01 17:00</p>
-                        <button>Edit</button>
-                    </div>
-                    <div class="inprogress__task">
-                        <div class="inprogress__category">
-                            <p>category</p>
-                        </div>
-                        <div class="inprogress__content">
-                            <input type="checkbox">
-                            <h1>this is second task</h1>
-                        </div>
-                        <p class="inprogress__datetime">2024-07-01 17:00</p>
-                        <button>Edit</button>
-                    </div>
-                    <div class="inprogress__task">
-                        <div class="inprogress__category">
-                            <p>category</p>
-                        </div>
-                        <div class="inprogress__content">
-                            <input type="checkbox">
-                            <h1>this is third task</h1>
-                        </div>
-                        <p class="inprogress__datetime">2024-07-01 17:00</p>
-                        <button>Edit</button>
-                    </div>
+                        <button class="inprogress__task__button">Edit</button>
+                    </div> -->
                 </div>
             </div>
 
             <div class="w-[100%] h-auto mt-5 text-right">
-                <button class="text-[4vw] font-bold border rounded-full pl-4 pr-4 cursor-pointer">+</button>
+                <button id="plus__button" class="text-[4vw] font-bold border rounded-full pl-4 pr-4 cursor-pointer">+</button>
             </div>
 
         </div>
@@ -121,6 +101,7 @@
 
     </section>
 
+    <script src="./javascript/indexscript.js"></script>
 </body>
 
 </html>
