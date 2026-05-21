@@ -1,5 +1,5 @@
 
-
+// localStorage.removeItem("tasks")
 
 let addbtn = document.getElementById("plus__button")
 let inputform = document.getElementById("input__form")
@@ -16,6 +16,12 @@ let refresh_page = () => {
 // JavaScript code for showing the task form when the add button is clicked
 addbtn.addEventListener("click", () => {
     inputform.classList.remove("hidden")
+});
+// JavaScript code for closing the task form when the cancel button is clicked
+let cancel_addbtn = document.getElementById("cancel-add__button")
+cancel_addbtn.addEventListener("click", () => {
+    event.preventDefault()
+    inputform.classList.add("hidden")
 });
 
 // JavaScript code for displaying task on the page 
@@ -94,4 +100,55 @@ closebtn.addEventListener("click", () => {
 
 
 });
+
+// JavaScript code for displaying the task details form when the edit button is clicked
+let task_container = document.getElementById("inprogress__container")
+task_container.addEventListener("click", (event) => {
+    if (event.target.textContent === "Edit") {
+        let edit_form = document.getElementById("edit__form")
+        edit_form.classList.remove("hidden")
+        // console.log(event.target.parentElement.children[0].textContent)
+        // console.log(event.target.parentElement.children[1].textContent)
+        // console.log(event.target.parentElement.children[2].textContent)
+        // console.log(tasklist)
+        tasklist.forEach((element, index) => {
+            if (element.task === event.target.parentElement.children[1].textContent && element.date === event.target.parentElement.children[2].textContent && element.category === event.target.parentElement.children[0].textContent) {
+                // console.log(element)
+
+                // Populate the edit form with the selected task's details
+                document.getElementById("edit-task").value = element.task
+                document.getElementById("edit-due-date").value = element.date
+                document.getElementById("edit-category").value = element.category
+
+                let savebtn = document.getElementById("save-edit__button")
+
+                // JavaScript code for saving the edited task details to local storage and refreshing the page
+                savebtn.addEventListener("click", () => {
+                    event.preventDefault()
+                    let edit_task = document.getElementById("edit-task").value
+                    let edit_due_date = document.getElementById("edit-due-date").value
+                    let edit_category = document.getElementById("edit-category").value
+                    // console.log(edit_task)
+                    // console.log(edit_due_date)
+                    // console.log(edit_category)
+                    tasklist[index].task = edit_task
+                    tasklist[index].date = edit_due_date
+                    tasklist[index].category = edit_category
+                    localStorage.setItem("tasks", JSON.stringify(tasklist))
+                    let edit_form = document.getElementById("edit__form")
+                    edit_form.classList.add("hidden")
+                    refresh_page()
+                });
+            }
+        });
+    }
+});
+
+// JavaScript code for closing the task details form when the cancel button is clicked
+let cancelbtn = document.getElementById("cancel__button")
+cancelbtn.addEventListener("click", () => {
+    event.preventDefault()
+    let edit_form = document.getElementById("edit__form")
+    edit_form.classList.add("hidden")
+})
 
