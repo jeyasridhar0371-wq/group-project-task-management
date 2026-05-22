@@ -1,140 +1,124 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management</title>
-    <!-- Tailwind CSS cdn -->
+    <title>Advanced Task Manager</title>
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Young+Serif&display=swap"
-        rel="stylesheet">
-    <!-- custom css -->
+
     <link rel="stylesheet" href="styles/indexstyle.css">
-    <style>
-        table,
-        th,
-        td {
-            border: 2px solid black;
-            padding: 10px;
-            margin: 5px;
-        }
-    </style>
 </head>
 
-<body class="font-serif font-weight:400 w-[100%] bg-gray-200 h-[100vh] m-0 ">
+<body class="bg-gray-100 min-h-screen p-5">
 
-    <!-- navbar -->
-    <section>
+    <!-- Header -->
+    <div class="max-w-5xl mx-auto">
 
-    </section>
-    <!-- Search/Filter section -->
-    <section>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+            <h1 class="text-4xl font-bold">Task Manager</h1>
 
-    </section>
-    <!-- Add task form -->
-    <section id="input__form" class="w-[100vw] h-[100vh] top-0 left-0 absolute z-20 hidden">
-        <form action="" id="form__tag" class="z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-10 rounded-lg">
-            <table>
-                <tr>
-                    <th> <label for="task-input">What is to be done?</label></th>
-                    <td> <input type="text" id="task-input" placeholder="Enter task here"></td>
-                </tr>
-                <tr>
-                    <th> <label for="due-date">Due Date:</label></th>
-                    <td><input type="datetime-local" id="due-date"></td>
-                </tr>
-                <tr>
-                    <th><label for="category">Category:</label></th>
-                    <td>
-                        <select name="" id="select">
-                            <option value="">Select category</option>
-                            <option value="Personal">Personal</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Work">Work</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center"><button id="cancel-add__button" class="border p-2 rounded-lg">Cancel</button></td>
-                    <td class="text-center"><input type="submit" id="close__button" class="border p-2 rounded-lg"></td>
-                </tr>
-            </table>
-        </form>
-        <div id="overlay" class="bg-black w-[100%] h-[100%] absolute top-0 left-0 opacity-50 z-30"></div>
-    </section>
-    <!-- Edit task form -->
-    <section id="edit__form" class="w-[100vw] h-[100vh] top-0 left-0 absolute z-20 hidden">
-        <form action="" id="edit__tag" class="z-40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-10 rounded-lg">
-            <table>
-                <tr>
-                    <th> <label for="edit-task">What is to be done?</label></th>
-                    <td> <input type="text" id="edit-task" placeholder="Enter task here"></td>
-                </tr>
-                <tr>
-                    <th> <label for="edit-due-date">Due Date:</label></th>
-                    <td><input type="datetime-local" id="edit-due-date"></td>
-                </tr>
-                <tr>
-                    <th><label for="edit-category">Category:</label></th>
-                    <td>
-                        <select name="" id="edit-category">
-                            <option value="">Select category</option>
-                            <option value="Personal">Personal</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Work">Work</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center"><button id="cancel__button" class="border p-2 rounded-lg">Cancel</button></td>
-                    <td class="text-center"><input type="submit" id="save-edit__button" class="border p-2 rounded-lg"></td>
-                </tr>
-            </table>
-        </form>
-        <div id="edit-overlay" class="bg-black w-[100%] h-[100%] absolute top-0 left-0 opacity-50 z-30"></div>
-    </section>
-    <!-- Task list display -->
-    <!-- in progress task -->
-    <section>
-        <div class=" border rounded-lg w-[80%] relative h-auto bg-white m-auto mt-10 p-5 shadow-lg text-[2vw]">
-            <h2 class="text-2xl font-bold text-center mb-4">In Progress</h2>
-            <div class="w-[100%] h-[25vw] overflow-auto">
-                <div id="inprogress__container" class="w-[100%] flex flex-col items-center">
-                    <div class="">
-                        <h1 id="no__task" class="font-bold text-[3vw] mt-[50%] text-gray-500">NO Tasks Yet</h1>
-                    </div>
-                    <!-- <div class="inprogress__task">
-                        <div class="inprogress__category">
-                            <p class="inprogress__category__p">category</p>
-                        </div>
-                        <div class="inprogress__content">
-                            <input type="checkbox">
-                            <h1 class="inprogress__content__h1">this is first task</h1>
-                        </div>
-                        <p class="inprogress__datetime">2024-07-01 17:00</p>
-                        <button class="inprogress__task__button">Edit</button>
-                    </div> -->
-                </div>
+            <button id="addBtn"
+                class="bg-blue-500 hover:bg-blue-600 transition text-white px-5 py-2 rounded-lg">
+                + Add Task
+            </button>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="bg-white p-4 rounded-xl shadow mb-6 flex flex-col md:flex-row gap-4">
+
+            <input type="text" id="searchInput"
+                placeholder="Search tasks..."
+                class="border p-2 rounded-lg flex-1">
+
+            <select id="filterCategory"
+                class="border p-2 rounded-lg">
+                <option value="All">All Categories</option>
+                <option value="Personal">Personal</option>
+                <option value="Work">Work</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
+            <div class="bg-white p-5 rounded-xl shadow text-center">
+                <h2 class="text-xl font-bold">Total Tasks</h2>
+                <p id="totalTasks" class="text-3xl mt-2">0</p>
             </div>
 
-            <div class="w-[100%] h-auto mt-5 text-right">
-                <button id="plus__button" class="text-[4vw] font-bold border rounded-full pl-4 pr-4 cursor-pointer">+</button>
+            <div class="bg-white p-5 rounded-xl shadow text-center">
+                <h2 class="text-xl font-bold">Completed</h2>
+                <p id="completedTasks" class="text-3xl mt-2">0</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow text-center">
+                <h2 class="text-xl font-bold">Pending</h2>
+                <p id="pendingTasks" class="text-3xl mt-2">0</p>
             </div>
 
         </div>
-    </section>
-    <!-- completed tasks -->
-    <section>
 
-    </section>
+        <!-- Task List -->
+        <div id="taskContainer" class="grid gap-4"></div>
 
-    <script src="./javascript/indexscript.js"></script>
+    </div>
+
+    <!-- Modal -->
+    <div id="taskModal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+
+        <div class="bg-white p-6 rounded-xl w-[90%] md:w-[400px]">
+
+            <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add Task</h2>
+
+            <form id="taskForm" class="space-y-4">
+
+                <input type="text"
+                    id="taskName"
+                    placeholder="Enter task"
+                    class="w-full border p-2 rounded-lg">
+
+                <input type="datetime-local"
+                    id="taskDate"
+                    class="w-full border p-2 rounded-lg">
+
+                <select id="taskCategory"
+                    class="w-full border p-2 rounded-lg">
+
+                    <option value="">Select Category</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+                <div class="flex justify-end gap-3">
+
+                    <button type="button"
+                        id="cancelBtn"
+                        class="border px-4 py-2 rounded-lg">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-lg">
+                        Save
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script src="javascript/indexscript.js"></script>
 </body>
 
 </html>

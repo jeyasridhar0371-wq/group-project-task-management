@@ -1,46 +1,72 @@
-.inprogress__task {
-    width: 80%;
-    border: 1px solid black;
-    border-radius: 8px;
-    padding: 8px;
-    padding-top: 0;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-.inprogress__task__button {
-    font-size: 1.5vw;
-    padding: 4px 8px;
-    background-color: #93c5fd;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.inprogress__datetime{
-   color: blue;
-}
-.inprogress__category {
-    text-align: right;
-    font-size: 1vw;
-}
-.inprogress__category__p{
-    background-color: #93c5fd;
-    display: inline-block;
-    top: 0px;
-    right: 8px;
-    padding: 4px 8px;
-    border-radius: 8px;
-}
-.inprogress__content {
+
+.task-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
     display: flex;
-    align-items: left;
-    /* flex-wrap: wrap; */
+    justify-content: space-between;
+    align-items: center;
     gap: 20px;
-    h1{
-        flex-wrap: wrap;
-    }
+
+    transition: 0.3s;
 }
-.inprogress__content__h1 {
+
+.task-card:hover {
+    transform: translateY(-3px);
+}
+
+.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: bold;
-    font-size: 3vw;
+}
+
+.Personal {
+    background: #dbeafe;
+}
+
+.Work {
+    background: #dcfce7;
+}
+
+.Shopping {
+    background: #fef3c7;
+}
+
+.Other {
+    background: #f3e8ff;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-btn {
+    background: #3b82f6;
+    color: white;
+}
+
+.delete-btn {
+    background: #ef4444;
+    color: white;
+}
+
+.complete-btn {
+    background: #22c55e;
+    color: white;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
 }
