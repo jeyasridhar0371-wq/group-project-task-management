@@ -1,9 +1,8 @@
-
 .task-card {
     background: white;
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
     display: flex;
     justify-content: space-between;
@@ -69,4 +68,21 @@
 
 .action-btn:hover {
     opacity: 0.8;
+}
+
+.High {
+    border-left: 6px solid red;
+}
+
+.Medium {
+    border-left: 6px solid orange;
+}
+
+.Low {
+    border-left: 6px solid green;
+}
+
+.overdue {
+    background-color: #fee2e2;
+    border: 2px solid red;
 }

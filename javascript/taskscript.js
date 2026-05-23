@@ -1,68 +1,63 @@
-
-
 const addBtn = document.getElementById("addBtn");
 const taskModal = document.getElementById("taskModal");
 const cancelBtn = document.getElementById("cancelBtn");
 const taskForm = document.getElementById("taskForm");
-
 const taskContainer = document.getElementById("taskContainer");
-
 const taskName = document.getElementById("taskName");
 const taskDate = document.getElementById("taskDate");
 const taskCategory = document.getElementById("taskCategory");
-
+const taskPriority = document.getElementById("taskPriority");
 const searchInput = document.getElementById("searchInput");
 const filterCategory = document.getElementById("filterCategory");
-
 const totalTasks = document.getElementById("totalTasks");
 const completedTasks = document.getElementById("completedTasks");
 const pendingTasks = document.getElementById("pendingTasks");
-
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-let editIndex = null;
+let editingTask = null;
 
 addBtn.addEventListener("click", () => {
     taskModal.classList.remove("hidden");
 });
 
-cancelBtn.addEventListener("click", () => {
-    closeModal();
-});
+cancelBtn.addEventListener("click", closeModal);
+
+searchInput.addEventListener("input", renderTasks);
+filterCategory.addEventListener("change", renderTasks);
 
 function closeModal() {
     taskModal.classList.add("hidden");
     taskForm.reset();
-    editIndex = null;
+    editingTask = null;
 }
 
 taskForm.addEventListener("submit", (e) => {
+
     e.preventDefault();
 
     if (
-        taskName.value.trim() === "" ||
-        taskDate.value === "" ||
-        taskCategory.value === ""
+        !taskName.value.trim() ||
+        !taskDate.value ||
+        !taskCategory.value ||
+        !taskPriority.value
     ) {
         alert("Please fill all fields");
         return;
     }
 
-    const taskObj = {
+    const newTask = {
         name: taskName.value,
         date: taskDate.value,
         category: taskCategory.value,
+        priority: taskPriority.value,
         completed: false
     };
 
-    if (editIndex === null) {
-        tasks.push(taskObj);
+    if (editingTask === null) {
+        tasks.push(newTask);
     } else {
-        tasks[editIndex] = {
-            ...tasks[editIndex],
-            name: taskName.value,
-            date: taskDate.value,
-            category: taskCategory.value
+        tasks[editingTask] = {
+            ...tasks[editingTask],
+            ...newTask
         };
     }
 
@@ -71,42 +66,50 @@ taskForm.addEventListener("submit", (e) => {
     closeModal();
 });
 
+
+
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function renderTasks() {
-
     taskContainer.innerHTML = "";
 
-    let filteredTasks = tasks.filter((task) => {
+    const filteredTasks = tasks.filter((task) => {
 
-        let matchesSearch = task.name
+        const matchesSearch = task.name
             .toLowerCase()
             .includes(searchInput.value.toLowerCase());
 
-        let matchesCategory =
+        const matchesCategory =
             filterCategory.value === "All" ||
             task.category === filterCategory.value;
 
         return matchesSearch && matchesCategory;
     });
 
-    if (filteredTasks.length === 0) {
+    if (!filteredTasks.length) {
         taskContainer.innerHTML = `
             <div class="text-center text-gray-500 text-2xl">
                 No Tasks Found
             </div>
         `;
+
+        updateStats();
+        return;
     }
 
     filteredTasks.forEach((task, index) => {
 
         const taskCard = document.createElement("div");
+        const now = new Date();
+        const dueDate = new Date(task.date);
 
         taskCard.className = `
             task-card
+            ${task.priority}
             ${task.completed ? "completed" : ""}
+            ${dueDate < now && !task.completed ? "overdue" : ""}
         `;
 
         taskCard.innerHTML = `
@@ -117,9 +120,15 @@ function renderTasks() {
                     ${new Date(task.date).toLocaleString()}
                 </p>
 
-                <span class="badge ${task.category}">
-                    ${task.category}
-                </span>
+                <div class="flex gap-2 mt-2">
+                    <span class="badge ${task.category}">
+                        ${task.category}
+                    </span>
+
+                    <span class="badge bg-black text-white">
+                        ${task.priority}
+                    </span>
+                </div>
             </div>
 
             <div class="flex flex-wrap gap-2">
@@ -139,19 +148,17 @@ function renderTasks() {
             </div>
         `;
 
-        const completeBtn =
-            taskCard.querySelector(".complete-btn");
+        const completeBtn = taskCard.querySelector(".complete-btn");
+        const editBtn = taskCard.querySelector(".edit-btn");
+        const deleteBtn = taskCard.querySelector(".delete-btn");
 
         completeBtn.addEventListener("click", () => {
-            tasks[index].completed =
-                !tasks[index].completed;
+
+            tasks[index].completed = !tasks[index].completed;
 
             saveTasks();
             renderTasks();
         });
-
-        const editBtn =
-            taskCard.querySelector(".edit-btn");
 
         editBtn.addEventListener("click", () => {
 
@@ -160,24 +167,19 @@ function renderTasks() {
             taskName.value = task.name;
             taskDate.value = task.date;
             taskCategory.value = task.category;
+            taskPriority.value = task.priority;
 
-            editIndex = index;
+            editingTask = index;
         });
-
-        const deleteBtn =
-            taskCard.querySelector(".delete-btn");
 
         deleteBtn.addEventListener("click", () => {
 
-            const confirmDelete =
-                confirm("Delete this task?");
+            if (!confirm("Delete this task?")) return;
 
-            if (confirmDelete) {
-                tasks.splice(index, 1);
+            tasks.splice(index, 1);
 
-                saveTasks();
-                renderTasks();
-            }
+            saveTasks();
+            renderTasks();
         });
 
         taskContainer.append(taskCard);
@@ -188,20 +190,13 @@ function renderTasks() {
 
 function updateStats() {
 
-    totalTasks.textContent = tasks.length;
-
-    let completed = tasks.filter(
+    const completedCount = tasks.filter(
         task => task.completed
     ).length;
 
-    completedTasks.textContent = completed;
-
-    pendingTasks.textContent =
-        tasks.length - completed;
+    totalTasks.textContent = tasks.length;
+    completedTasks.textContent = completedCount;
+    pendingTasks.textContent = tasks.length - completedCount;
 }
-
-searchInput.addEventListener("input", renderTasks);
-
-filterCategory.addEventListener("change", renderTasks);
 
 renderTasks();
