@@ -200,3 +200,7 @@ function updateStats() {
 }
 
 renderTasks();
+
+setInterval(() => {
+    renderTasks();
+}, 1000);
