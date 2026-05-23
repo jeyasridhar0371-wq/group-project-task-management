@@ -1,124 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Task Manager</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <link rel="stylesheet" href="styles/indexstyle.css">
+    <title>Morden social hub</title>
 </head>
+<body>
+    <a href="./task.html">Task manager</a>
+    <a href="./weather.html">Check Weather</a>
 
-<body class="bg-gray-100 min-h-screen p-5">
-
-    <!-- Header -->
-    <div class="max-w-5xl mx-auto">
-
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-            <h1 class="text-4xl font-bold">Task Manager</h1>
-
-            <button id="addBtn"
-                class="bg-blue-500 hover:bg-blue-600 transition text-white px-5 py-2 rounded-lg">
-                + Add Task
-            </button>
-        </div>
-
-        <!-- Search & Filter -->
-        <div class="bg-white p-4 rounded-xl shadow mb-6 flex flex-col md:flex-row gap-4">
-
-            <input type="text" id="searchInput"
-                placeholder="Search tasks..."
-                class="border p-2 rounded-lg flex-1">
-
-            <select id="filterCategory"
-                class="border p-2 rounded-lg">
-                <option value="All">All Categories</option>
-                <option value="Personal">Personal</option>
-                <option value="Work">Work</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-
-            <div class="bg-white p-5 rounded-xl shadow text-center">
-                <h2 class="text-xl font-bold">Total Tasks</h2>
-                <p id="totalTasks" class="text-3xl mt-2">0</p>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl shadow text-center">
-                <h2 class="text-xl font-bold">Completed</h2>
-                <p id="completedTasks" class="text-3xl mt-2">0</p>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl shadow text-center">
-                <h2 class="text-xl font-bold">Pending</h2>
-                <p id="pendingTasks" class="text-3xl mt-2">0</p>
-            </div>
-
-        </div>
-
-        <!-- Task List -->
-        <div id="taskContainer" class="grid gap-4"></div>
-
-    </div>
-
-    <!-- Modal -->
-    <div id="taskModal"
-        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
-
-        <div class="bg-white p-6 rounded-xl w-[90%] md:w-[400px]">
-
-            <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add Task</h2>
-
-            <form id="taskForm" class="space-y-4">
-
-                <input type="text"
-                    id="taskName"
-                    placeholder="Enter task"
-                    class="w-full border p-2 rounded-lg">
-
-                <input type="datetime-local"
-                    id="taskDate"
-                    class="w-full border p-2 rounded-lg">
-
-                <select id="taskCategory"
-                    class="w-full border p-2 rounded-lg">
-
-                    <option value="">Select Category</option>
-                    <option value="Personal">Personal</option>
-                    <option value="Work">Work</option>
-                    <option value="Shopping">Shopping</option>
-                    <option value="Other">Other</option>
-
-                </select>
-
-                <div class="flex justify-end gap-3">
-
-                    <button type="button"
-                        id="cancelBtn"
-                        class="border px-4 py-2 rounded-lg">
-                        Cancel
-                    </button>
-
-                    <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-lg">
-                        Save
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-    </div>
-
-    <script src="javascript/indexscript.js"></script>
 </body>
-
 </html>
